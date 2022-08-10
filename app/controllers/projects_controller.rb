@@ -23,7 +23,10 @@ class ProjectsController < ProjectsBaseController
       team: current_user.team,
       public_feed: params[:visibility] == 'Public'
     )
-
+    # Creates project_user after project is created.
+    # This changes default behaviour for authorising a user on project.
+    # In src/projects_for_user.rb, the user_on_project? method will now only include creator on project by default, rather than all users.
+    project.project_users.create(user: current_user)
     flash[:success] = 'Project created'
     return redirect_to dashboard_path
   end

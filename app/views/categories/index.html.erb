@@ -1,0 +1,34 @@
+<%= render 'shared/project_menu' %>
+
+<% content_for :title do %>
+  Categories
+<% end %>
+
+<%= render 'settings/settings_menu' %>
+
+<div id="modal-container"></div>
+
+<div style="display: flex; justify-content: space-between; align-items: center;">
+  <h2>Categories</h2>
+  <%= link_to 'Add Category', new_project_settings_category_path, class: 'btn btn-secondary', remote: true %>
+</div>
+
+
+<table class="rr-table">
+  <thead>
+    <th>Name</th>
+    <th></th>
+  </thead>
+  <% @facade.categories.each do |category| %>
+    <tr>
+      <td>
+        <%= category.title %>
+      </td>
+      <td>
+        <%= link_to project_settings_category_path(id: category.id), method: :delete, data: { confirm: 'Are you sure you want to delete this category? Any releases in this category will be uncategorised' }  do %>
+          <i class="fas fa-trash" style="float:right"></i>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

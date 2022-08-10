@@ -1,0 +1,25 @@
+<div class="digest">
+  <% @facade.payload.each do |day, releases| %>
+    <div class="kb-public">
+
+      <div class="kb-category">
+        <p class="kb-release-category"><%= day %></p>
+      </div>
+
+      <div class="kb-items">
+
+        <% releases.each do |release| %>
+
+          <div class="kb-release-block">
+            <%= render 'title', release: release %>
+            <div>
+
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+
+  <% end %>
+</div>

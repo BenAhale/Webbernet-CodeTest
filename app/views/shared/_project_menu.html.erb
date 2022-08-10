@@ -1,0 +1,15 @@
+<div style="display: flex; justify-content: space-between;">
+  <h1> <%= @current_project.title.truncate(40) %> </h1>
+  <%= link_to public_releases_url(p: @facade.project.public_key), class: 'btn btn-primary', style: 'align-self: center;', target: '_blank' do %>
+    <i class="fas fa-stream"></i>&nbsp&nbsp
+    View Feed
+  <% end %>
+</div>
+
+<%= render 'components/tabs',
+menu_items: {
+  'Releases' => { path: project_releases_path },
+  'Project Settings' => { path: edit_project_settings_path, url_active_regex: /settings/ },
+},
+activate_regex: /settings/
+%>

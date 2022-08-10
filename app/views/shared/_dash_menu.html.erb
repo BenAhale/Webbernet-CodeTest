@@ -1,0 +1,7 @@
+<h1><%= @facade.team.name %></h1>
+<%= render 'components/tabs',
+menu_items: {
+  'Users' => { path: users_path },
+  'API' => { path: api_settings_path }
+}
+%>

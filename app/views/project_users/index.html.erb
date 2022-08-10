@@ -1,0 +1,37 @@
+<%= render 'shared/project_menu' %>
+
+<% content_for :title do %>
+  Access
+<% end %>
+
+<%= render 'settings/settings_menu' %>
+
+<h2>Users</h2>
+
+<% if @facade.users.empty? %>
+  <p>All <%= @current_project.team.name %> users can currently access this project.</p>
+  </br>
+<% end %>
+
+<%= form_tag project_settings_project_users_path, method: :post do %>
+  <div class="form-group">
+    <%= select_tag :user_id, options_from_collection_for_select(@facade.available_users, :id, :full_name),  include_blank: 'Add a User' , class: 'form-control', onchange: 'this.form.submit()'  %>
+  </div>
+<% end %>
+
+<table class="rr-table">
+  <thead>
+    <th>Name</th>
+    <th></th>
+  </thead>
+  <% @facade.users.each do |user| %>
+    <tr>
+      <td><%= user.full_name %></td>
+      <td>
+        <%= link_to project_settings_project_user_path(id: user.id), method: :delete, data: { confirm: 'Are you sure you want to remove this user?' }  do %>
+          <i class="fas fa-trash"></i>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

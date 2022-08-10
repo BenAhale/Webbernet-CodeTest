@@ -1,0 +1,13 @@
+<% content_for :title do %>
+  <%= @facade.project.title.truncate(50) %>
+<% end %>
+
+<div class="public-container">
+  <h1><%= @facade.project.title %></h1>
+  <% if @facade.releases.empty? %>
+    <div style="padding: 10px; background-color: #eceaea; color: #9e9e9e; text-align: center; margin-top: 50px;" >
+      <h4>There aren't any releases yet for this project</h4>
+    </div>
+  <% end %>
+  <%= render @facade.index_partial_view %>
+</div>

@@ -1,0 +1,9 @@
+<div class="rr-tabs">
+  <% menu_items.each do |name, options| %>
+    <% active = (request.env['PATH_INFO'].match(options.fetch(:url_active_regex, /a^/))) || current_page?(options[:path]) %>
+    <%= link_to options[:path], class: "rr-nav-link #{active ? 'active' : ''}" do %>
+      <%= name %>
+      <div class="<%= active ? 'active-indicator' : '' %>"></div>
+    <% end %>
+  <% end %>
+</div>

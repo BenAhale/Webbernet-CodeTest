@@ -1,0 +1,12 @@
+<%= render 'shared/project_menu' %>
+
+<% content_for :title do %>
+  Feed Settings
+<% end %>
+
+<%= render 'settings/settings_menu' %>
+
+<h2>Feed Settings</h2>
+
+<%= form_for @facade.form, url: project_settings_feed_path, method: :put do |f| %>
+<% end %>

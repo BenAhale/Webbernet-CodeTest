@@ -1,0 +1,57 @@
+<script>
+
+ $( document ).ready(function() {
+
+   $('#start-date').datepicker({
+     dateFormat: 'dd/mm/yy'
+   });
+
+   $('#start-time').timepicker({
+     timeFormat: 'h:mm p',
+     interval: 30,
+     dynamic: false,
+     dropdown: true,
+     scrollbar: true
+   });
+
+ });
+</script>
+
+
+<div id="form-errors"></div>
+<% if local_assigns.fetch(:email_field, true) %>
+  <div class="form-group required">
+    <%= f.label :email, class: "control-label" %>
+    <%= f.email_field :email, class: "form-control", required: true, id: 'email', placeholder: 'Email address to subscribe' %>
+  </div>
+<% end %>
+
+
+<h3><%= local_assigns.fetch(:interval_message, 'How often would you like to be updated?') %></h3>
+
+<div class="form-group required">
+  <%= f.label :interval_value, 'Every', class: "control-label" %>
+  <div class="grid-12-fields">
+    <div style="grid-column: span 6;">
+      <%= f.number_field :interval_value, class: "form-control", required: true, placeholder: 'Interval - e.g. 1', id: 'interval-value', min: 0, oninput: "this.value = Math.abs(this.value)" %>
+    </div>
+
+    <div style="grid-column: span 6;">
+      <%= f.select :interval_type, options_for_select(['hours', 'days'], @facade.form.interval_type), { prompt: 'Please Select' }, class: "form-control", required: true, id: 'interval-type' %>
+    </div>
+  </div>
+</div>
+
+<div class="form-group required">
+  <%= f.label :email, 'Starting From', class: "control-label" %>
+
+  <div class="grid-12-fields">
+    <div style="grid-column: span 6;">
+      <%= f.text_field :start_date, value: @facade.form.split_date, class: "form-control", required: true, id: 'start-date', placeholder: 'Date' %>
+    </div>
+
+    <div style="grid-column: span 6;">
+      <%= f.text_field :start_time, value: @facade.form.split_time, class: "form-control", required: true, id: 'start-time', placeholder: 'Time' %>
+    </div>
+  </div>
+</div>

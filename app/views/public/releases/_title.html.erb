@@ -1,0 +1,7 @@
+<%= link_to public_release_path(public_id: release.public_key, p: params[:p], uref: params[:uref], ft: params[:ft], r: params[:r]), id: "release-#{release.id}" do %>
+  <% if @facade.unread_releases&.include? release.id %>
+    <span class="new-icon">New</span>
+  <% end %>
+
+  <span class="title"><%= release.title.truncate(150) %></span>&nbsp
+<% end %>

@@ -1,0 +1,50 @@
+<% content_for :title do %>
+  <%= @facade.release.title.truncate(50) %>
+<% end %>
+
+<h1>Update Release</h1>
+
+<div class="grid-12">
+  <div style="grid-column: span 6;">
+    <%= form_for @facade.form, url: project_release_path, method: :put do |f| %>
+      <%= render 'release_body_form', f: f %>
+
+
+      <div style="display: flex; align-items: baseline; justify-content: space-between;">
+        <div class="form-group">
+          <%= button_tag(name: 'commit', value: 'create', :class => "btn btn-secondary") do %>
+            <i class="fas fa-save"></i>&nbsp
+            Save
+          <% end %>
+        </div>
+
+        <%= link_to project_release_path(id: @facade.release.id) , method: :delete, data: { confirm: 'Are you sure?' }, style: "margin-left: 20px;"  do %>
+          <i class="fas fa-trash"></i>&nbsp Delete
+        <% end %>
+
+      </div>
+    <% end %>
+
+    <p>Preview published version <%= link_to 'here', public_release_url(p: @facade.project.public_key, public_id: @facade.release.public_key) , target: '_blank' %></p>
+
+  </div>
+
+  <div style="grid-column: span 6;">
+    <% if params[:analytics] == 'true' %>
+      <strong>Views</strong>
+      <table class="rr-table">
+        <thead>
+          <th>Id</th>
+          <th>Details</th>
+        </thead>
+        <% @facade.reads.each do |read| %>
+          <tr>
+            <td><%= read.uref.id %></td>
+            <td><%= read.uref.first_name %> <%= read.uref.last_name %></td>
+            <td><%= read.created_at.strftime('%-d %b %I:%M%P') %></td>
+          </tr>
+        <% end %>
+      </table>
+    <% end %>
+  </div>
+</div>

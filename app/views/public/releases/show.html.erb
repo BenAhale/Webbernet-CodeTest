@@ -1,0 +1,13 @@
+<% content_for :title do %>
+  <%= @facade.release.title.truncate(50) %>
+<% end %>
+
+<div class="public-container">
+  <% unless @facade.hide_back_btn %>
+    <%= link_to public_releases_path(PassThroughParams.run({ anchor: "r#{@facade.release.id}" }, params)), class: 'back-arrow-link' do %>
+      <i class="far fa-arrow-alt-circle-left"></i>
+    <% end %>
+  <% end %>
+
+  <%= render 'public/release_show_body', release: @facade.release %>
+</div>

@@ -1,0 +1,5 @@
+<div class="release-list">
+  <% @facade.releases.each do |release| %>
+    <%= render 'public/release_show_body', release: release, new: (@facade.unread_releases&.include? release.id) %>
+  <% end %>
+</div>

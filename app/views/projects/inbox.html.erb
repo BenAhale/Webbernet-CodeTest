@@ -1,0 +1,14 @@
+<%= render 'shared/project_menu' %>
+
+<% content_for :title do %>
+  Inbox
+<% end %>
+
+<div id="modal-container"></div>
+
+<% if @facade.project.prompts.empty? && @facade.project.prompt_subscriptions.active.empty? %>
+  <%= render 'shared/no_prompts_instruction' %>
+<% else %>
+  <%= render 'shared/prompts_menu' %>
+  <%= render 'shared/pushes_table', show_delete: true, show_create_release: true, show_revert: false %>
+<% end %>

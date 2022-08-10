@@ -1,0 +1,19 @@
+
+<%= render 'header_menu' %>
+
+<div id="modal-container"></div>
+
+<table class="table">
+  <% @facade.pushes.each do |push| %>
+  <tr>
+    <td><%= push.message %></td>
+    <td><%= push.branch %></td>
+    <td><%= Tznet::Format.run('au_datetime', Tznet::Parse::FromI.run(push.created_at)) %></td>
+    <td><%= image_tag push.pusher_avatar, height: '30px' %></td>
+    <td><%= push.pusher_username %></td>
+    <td><%= link_to push.sha.truncate(20), push.url, target: '_blank' %></td>
+    <td><%= link_to 'Release', edit_release_project_pushes_path(push_id: push.id), remote: true %></td>
+    <td><%= link_to 'Discard', discard_project_pushes_path(push_id: push.id), method: :put %></td>
+  </tr>
+  <% end %>
+</table>

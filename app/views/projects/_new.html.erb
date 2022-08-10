@@ -1,0 +1,22 @@
+
+<%= render 'shared/project_visibility_tooltip' %>
+
+<%= render 'shared/modal', id: 'modal', title: 'New Project' do %>
+  <%= form_tag projects_path(from_none: params[:from_none]) do %>
+    <div class="form-group">
+      <%= label_tag :name, 'Project Name', class: 'control-label' %>
+      <%= text_field_tag :name, '' , { placeholder: 'Name your project', required: true, class: 'form-control' } %>
+    </div>
+    <div class="form-group">
+      <%= label_tag :visibility, 'Type', class: 'control-label' %>
+      <%= link_to '#', class: '', style: 'margin-left: 5px', target: '_blank', id: 'visibility-help' do %>
+        <i class="fa fa-question-circle"></i>&nbsp
+      <% end %>
+      <%= select_tag :visibility, options_for_select(['Private', 'Public']),  class: 'form-control'  %>
+    </div>
+    <div class="form-group">
+
+      <%= button_tag 'Create', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+<% end %>

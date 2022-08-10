@@ -1,0 +1,35 @@
+<div class="e" id="r<%= release.id %>"></div>
+<div class="release-summary-card">
+
+  <% if local_assigns.fetch(:new, false) %>
+      <span class="new-icon">New</span>
+  <% end %>
+
+  <% if release.category %>
+    <div style="display: flex; align-items: center; margin-bottom: 8px;">
+    <i style="color: #84828c;font-size: 8px;" class="far fa-circle"></i>&nbsp&nbsp
+    <span class="release-category">
+      <%= release.category&.title %>
+    </span>
+    </div>
+  <% end %>
+
+  <h2 style="margin: 0px; color: #f14b2b"><%= release.title %></h2>
+
+  <div class="digest">
+    <% if release.html_body.present? %>
+      <%= raw (release.html_body) %>
+    <% else %>
+      <p class="no-info">No further information.</p>
+    <% end %>
+  </div>
+
+  <p class="release-by-line" >
+    <span>
+      <% unless @facade.project.hide_author %>
+        by <%= release.user.full_name %>
+      <% end %>
+    </span>
+  </p>
+
+</div>

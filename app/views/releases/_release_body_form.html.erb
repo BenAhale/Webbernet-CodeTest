@@ -1,0 +1,73 @@
+<script>
+ $(document).ready(function() {
+   $('#release-full-body').froalaEditor({
+     key: 'zC4H5G4H4kB6B5C4F6F3E3H3F2C6C4D-13LAHYKAJOEe1HQDUH==',
+     heightMin: 250,
+     placeholderText: 'Add body text for your release',
+     iconsTemplate: 'font_awesome_5',
+     pluginsEnables: ['image', 'draggable', 'link', 'insertFile', 'paragraphFormat', 'quote'],
+     imageDefaultAlign: 'left',
+     imageDefaultWidth: 0,
+     paragraphFormat: {
+       N: 'Normal',
+       H2: 'Heading 1',
+       H3: 'Heading 2',
+       H4: 'Heading 3',
+       pre: 'Code'
+     },
+     toolbarButtons: [
+       'bold',
+       'italic',
+       'underline',
+       'paragraphFormat',
+       'formatOL',
+       'formatUL',
+       'insertTable',
+       'insertImage',
+       'insertVideo',
+       'insertFile',
+       'insertLink',
+       'emoticons',
+       'quote',
+     ],
+     emoticonsStep: 4,
+     emoticonsUseImage: false,
+     emoticonsSet: [
+       { code: '1f600', desc: 'Grinning face' },
+       { code: '1f601', desc: 'Grinning face with smiling eyes' },
+       { code: '1f602', desc: 'Face with tears of joy' },
+       { code: '1f603', desc: 'Smiling face with open mouth' },
+       { code: '1f604', desc: 'Smiling face with open mouth and smiling eyes' },
+       { code: '1f605', desc: 'Smiling face with open mouth and cold sweat' },
+       { code: '1f606', desc: 'Smiling face with open mouth and tightly-closed eyes' },
+       { code: '1f607', desc: 'Smiling face with halo' },
+       { code: '1F44D', desc: 'Thumbs Up' }
+     ]
+   })
+ });
+</script>
+
+<div id="form-errors"></div>
+<div class="form-group required">
+  <%= f.text_field :title, class: "form-control", required: true, placeholder: 'Title', autocomplete: :off, id: 'release-title', style: 'font-weight: 500; font-size: 16px' %>
+</div>
+
+<div class="form-group required">
+  <%= f.text_area :html_body, class: "form-control", id: 'release-full-body', rows: 10, columns: 20, style: 'height: 500px' %>
+</div>
+
+<% if local_assigns.fetch(:show_category, true) %>
+  <div class="form-group required">
+    <%= f.label :category, class: "control-label " %>
+    <%= f.select :category_id, options_from_collection_for_select(@facade.categories, :id, :title, @facade.form.category_id), { include_blank: 'No Category' }, class: "form-control", id: 'release-full-body', rows: 3 %>
+  </div>
+<% end %>
+
+<% if local_assigns.fetch(:show_status, true) %>
+  <div class="form-group required">
+    <%= f.label :status, class: "control-label " %>
+    <%= f.select :status, options_for_select([['Published', 'published'], ['Draft', 'draft']], @facade.form.status), {  }, class: "form-control", id: 'release-full-body', rows: 3 %>
+  </div>
+<% end %>
+
+<%= f.hidden_field :prompt_id, value: params[:pid] %>

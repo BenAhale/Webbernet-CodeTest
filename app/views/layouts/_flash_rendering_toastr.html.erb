@@ -1,0 +1,12 @@
+<% flash.keys.each do |key| %>
+  <%  toastr_key = key %>
+  <%  toastr_key = 'info' if key == 'notice' %>
+  <script>
+   <%  toastr_key = 'warning' if key == 'alert' %>
+   $(function() {
+       toastr["<%= "#{toastr_key}" %>"]("<%= "#{flash[key]}" %>",'' ,{
+           closeButton: true,
+       });
+   });
+  </script>
+<% end %>

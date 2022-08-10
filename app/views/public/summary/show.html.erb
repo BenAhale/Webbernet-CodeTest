@@ -1,0 +1,10 @@
+<% content_for :title do %>
+  Summary
+<% end %>
+
+<h1 style="text-align: center; margin-bottom: -30px"><%= @facade.project.title %> Updates</h1>
+</br>
+
+<% @facade.releases.each do |release| %>
+  <%= render 'public/release_show_body', release: release %>
+<% end %>

@@ -1,0 +1,15 @@
+<%= render 'shared/dash_menu' %>
+
+<% content_for :title do %>
+  API Settings
+<% end %>
+
+<h2>API Key</h2>
+
+<p>Each HTTP request needs to be authenticated with an <b>x-api-key</b> header with the below value.</p>
+
+<p>Keep this key secret!</p>
+
+<p style="padding: 10px; background-color: #f4f4f4; margin-top: 10px; width: 410px;"><strong><%= @facade.team.api_key %></strong></p>
+
+<%= link_to 'Developer Documentation', 'https://app.releaserobot.com/public/releases?ft=kb&p=b272b04f38', class: 'btn btn-primary', target: '_blank' %>

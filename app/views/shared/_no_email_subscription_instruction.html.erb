@@ -1,0 +1,13 @@
+<div style="text-align: center;">
+<%= image_tag 'badge-bw.svg', style: 'margin-top: 30px' %>
+<h3>
+You don't have any email subscriptions yet
+    </h3>
+    <p>An email subscriber will receive periodic updates of all releases in this project.</p>
+    <p>This is handy because they do not need to continually check the feed for updates.</p>
+  </br>
+  <%= link_to new_project_settings_subscription_path, class: 'btn btn-secondary', style: 'margin-left: 9px', remote: true do %>
+<i class="fas fa-plus"></i>&nbsp
+Add a subscription
+  <% end %>
+</div>

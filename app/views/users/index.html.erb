@@ -1,0 +1,30 @@
+<%= render 'shared/dash_menu' %>
+
+<% content_for :title do %>
+  Users
+<% end %>
+
+<div id="modal-container"></div>
+
+<div style="text-align: right">
+  <%= link_to 'Add a User', new_user_path, remote: true, class: 'btn btn-primary' %>
+</div>
+
+<table class="rr-table">
+  <thead>
+    <th>Name</th>
+    <th>Email</th>
+    <th></th>
+  </thead>
+  <% @facade.users.each do |user| %>
+    <tr>
+      <td><%= "#{user.first_name} #{user.last_name}" %></td>
+      <td><%= user.email %></td>
+      <td>
+        <%= link_to user_path(id: user.id), method: :delete, data: { confirm: 'Are you sure you want to delete this user from your team?' }  do %>
+          <i class="fa fa-times-circle"></i>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>

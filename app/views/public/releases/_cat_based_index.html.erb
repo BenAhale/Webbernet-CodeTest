@@ -1,0 +1,33 @@
+
+<div class="row">
+  <div class="col-md-6">
+    <%= form_tag nil, method: :get do %>
+      <%= hidden_field_tag 'ft', params[:ft] %>
+      <%= hidden_field_tag 'p', params[:p] %>
+      <%= select_tag 'r', options_for_select([['Today', 'today'], ['Last 7 days', 'l7'], ['Last 30 Days', 'l30']], params[:r]), class: 'form-control', id: 'range-picker', prompt: 'Select Range', onchange: "this.form.submit()" %>
+    <% end %>
+  </div>
+</div>
+
+<div class="digest">
+  <%= render 'no_results', payload: @facade.payload %>
+
+  <% @facade.payload.each do |day, releases| %>
+    <p class="release-category"><%= day %></p>
+
+
+    <% releases.each do |release| %>
+
+      <div class="release-block">
+        <%= render 'title', release: release %>
+        <div>
+
+          <span class="time" style="">
+            <%= Tznet::Format.run('au_long_date', release.created_at.in_time_zone('Australia/Brisbane')) %> by <%= release.user.full_name %>
+          </span>
+
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

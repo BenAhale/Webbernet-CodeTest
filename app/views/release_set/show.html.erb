@@ -1,0 +1,10 @@
+<%= render 'projects/header_menu' %>
+
+<table class="table">
+  <% @facade.releases.each do |release| %>
+  <tr>
+    <td><%= release.title %></td>
+    <td><%= release.body %></td>
+  </tr>
+  <% end %>
+</table>

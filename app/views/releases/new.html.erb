@@ -1,0 +1,91 @@
+<script>
+
+ function copy() {
+   $('#release-title').attr('value',  $('#prompt-title').text())
+   $('#release-full-body').froalaEditor('html.set', $('#prompt-body').html());
+ }
+
+</script>
+<h1>Create Release</h1>
+
+
+<% content_for :title do %>
+  Create Release
+<% end %>
+
+<div class="grid-12">
+  <div style="grid-column: span 6;">
+    <%= form_for @facade.form, url: project_releases_path do |f| %>
+
+      <%= render 'release_body_form', f: f %>
+
+      <div class="form-group">
+
+        <%= button_tag(name: 'commit', value: 'create', :class => "btn btn-secondary", id: 'create') do %>
+          <i class="fas fa-check-circle"></i>&nbsp
+          Create
+        <% end %>
+
+        &nbsp
+
+        <% if @facade.prompt.present? %>
+
+          <%= button_tag(name: 'commit', value: 'Create & Add another', :class => "btn btn-tertiary") do %>
+            <i class="fas fa-plus"></i>&nbsp
+            Add another
+          <% end %>
+
+        <% end %>
+
+      </div>
+
+    <% end %>
+
+    <% if @facade.prompt.present? && @facade.prompt.releases.any? %>
+      <table class="rr-table">
+        <thead>
+          <th>Release Title</th>
+          <th></th>
+        </thead>
+        <% @facade.prompt.releases.each do |release| %>
+          <tr>
+            <td><%= release.title.truncate(80) %></td>
+            <td style="text-align: right;">
+
+              <%= link_to project_release_path(public_id: release.public_key, refresh: true) , method: :delete, id: 'delete-release'  do %>
+                <i class="fa fa-times-circle"></i>
+              <% end %>
+            </td>
+
+          </tr>
+        <% end %>
+      </table>
+  </br>
+    <% end %>
+
+  </div>
+  <div style="grid-column: span 6;">
+    <% if @facade.prompt.present? %>
+
+      <div class="prompt-menu">
+        <%= link_to '#', onClick: 'copy();', class: 'prompt-menu-link' do %>
+          <i class="fa fa-copy"></i>
+        <% end %>
+
+        &nbsp
+
+        <%= link_to discard_project_prompts_path(prompt_id: @facade.prompt.id), method: :put, class: 'prompt-menu-link', data: { confirm: 'Are you sure you want to discard this prompt?' }  do %>
+          <i class="fa fa-times"></i>
+        <% end %>
+      </div>
+
+      <div class="prompt-details">
+        <h1 id="prompt-title"><strong><%= @facade.prompt.title %></strong></h1>
+        <p><%= Tznet::Format.run('au_datetime', Tznet::Parse::FromI.run(@facade.prompt.created_at))%></p>
+
+        <%= render partial: @facade.prompt.render_partial_path[:prompt_display],
+        locals: { prompt: @facade.prompt } %>
+      </div>
+    <% end %>
+  </div>
+</div>

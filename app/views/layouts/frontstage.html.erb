@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= render 'shared/head' %>
+  </head>
+
+  <body class="front-stage-body">
+    <%= yield :frame_bar %>
+    <div class="container public <%= yield :container_class %>">
+      <%= yield %>
+    </div>
+
+    <% if @show_rr_footer %>
+      <div class="front-stage-footer">
+        <%= image_tag 'badge-bw.svg', style: 'margin-top: 30px' %>
+      </div>
+    <% end %>
+  </body>
+</html>

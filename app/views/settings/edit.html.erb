@@ -1,0 +1,83 @@
+<%= render 'shared/project_menu' %>
+
+<% content_for :title do %>
+  Settings
+<% end %>
+
+
+<%= render 'shared/project_visibility_tooltip' %>
+
+<div id="modal-container"></div>
+
+<%= render 'settings_menu' %>
+
+<div class="settings-details-tab">
+  <div class="details-form">
+    <div style="display: flex; justify-content: space-between; align-items: baseline;">
+
+      <div>
+
+        <h2 style="margin-bottom: 0">Project Details</h3>
+          <p style="color: #bcbcbc; margin-top: 0;"><strong>Project ID:</strong> <%= @current_project.public_key %></p> &nbsp&nbsp
+      </div>
+
+      <div style="display: flex; align-items: center;">
+        <%= button_to 'Delete Project', project_path(public_id: @facade.project.public_key), method: :delete, class: 'btn btn-secondary btn-danger', data: { confirm: 'Are you sure you want to delete this project?' } %>
+      </div>
+
+    </div>
+
+
+    <%= form_for @facade.form, url: project_settings_path, remote: true, method: :put do |f| %>
+      <div id="form-errors"></div>
+
+      <div class="form-group required">
+        <%= f.label :name, class: "control-label" %>
+        <%= f.text_field :title, class: "form-control", required: true, style: 'width: 50%' %>
+      </div>
+
+      <div class="form-group">
+        <%= label_tag :visibility, 'Type', class: 'control-label' %>
+        <%= link_to '#', class: '', style: 'margin-left: 5px', target: '_blank', id: 'visibility-help' do %>
+          <i class="fa fa-question-circle"></i>&nbsp
+        <% end %>
+        <%= f.select :visibility, options_for_select(['Private', 'Public'], @facade.project.public_feed ? 'Public' : 'Private'), {} ,class: 'form-control', style: 'width: 50%'  %>
+
+      </div>
+
+      <h3>Feed Settings</h3>
+
+      <div class="form-group">
+        <%= f.label :hide_author, class: 'control-label' do %>
+          <%= f.check_box :hide_author %>
+          Hide Release Author
+        <% end %>
+      </div>
+
+      <div class="form-group">
+        <%= button_tag(name: 'commit', value: 'create', :class => "btn btn-secondary") do %>
+          <i class="fas fa-save"></i>&nbsp
+          Save
+        <% end %>
+      </div>
+    <% end %>
+
+
+    <% unless @facade.subscribed.empty? %>
+      <h2>Connected Projects</h2>
+
+      <ul>
+        <% @facade.subscribed.each do |subscribed_project| %>
+          <li>
+            <%= subscribed_project.title %>
+          </li>
+        <% end %>
+      </ul>
+
+    <% end %>
+  </div>
+
+  <div class="invite-form">
+  </div>
+
+</div>

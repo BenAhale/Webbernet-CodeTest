@@ -1,0 +1,47 @@
+<% content_for :title do %>
+  <%= @facade.team.name.truncate(20) %>
+<% end %>
+
+<div id="modal-container"></div>
+
+<div style="display: flex; align-items: center; justify-content: space-between;">
+<h1><%= @facade.team.name %></h1>
+<%= link_to 'Create a Project', new_project_path, remote: true, class: 'btn btn-primary' %>
+</div>
+
+<% if @facade.projects.any? %>
+  <div class="project-box-container" style="display: flex; flex-wrap: wrap;  justify-content: space-between;">
+
+    <% @facade.projects.each do |project| %>
+
+      <div class="project-box">
+
+        <%= link_to project_releases_path(project_public_id: project.public_key), style: 'display: block;' do %>
+          <div class="inner-project-box" id="project-<%= project.id %>">
+            <h4>
+              <%= project.title.truncate(50) %></h4>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%  unless @facade.projects.length % 3 == 0 %>
+      <div style="padding: 23px; padding-top: 23px; display: block; height: 187px; width: 340px; padding-top: 10px;"> </div>
+      <% end %>
+  </div>
+</div>
+<% else %>
+
+<div style="text-align: center;">
+  <h3>
+    Create your first Project
+  </h3>
+  <p>A project allows you to organise your Releases.</p>
+  <p>A project comes with a feed that you can share with your audience.</p>
+  </br>
+  <%= link_to new_project_path(from_none: true), class: 'btn btn-secondary', style: 'margin-left: 9px', id: 'create-project', remote: true do %>
+    <i class="fas fa-plus"></i>&nbsp
+    Create Project
+  <% end %>
+</div>
+<% end %>

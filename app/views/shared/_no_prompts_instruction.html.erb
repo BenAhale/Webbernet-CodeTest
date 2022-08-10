@@ -1,0 +1,18 @@
+<div style="text-align: center;">
+<%= image_tag 'badge-bw.svg', style: 'margin-top: 30px' %>
+<h3>
+You don't have any prompts setup yet
+    </h3>
+    <p>A prompt allows you to 'subscribe' your project to an outside source.</p>
+    <p>Prompts are the best way to ensure you communicate consistently with your audience.</p>
+  </br>
+  <%= link_to new_project_settings_prompt_subscript_path, class: 'btn btn-secondary', style: 'margin-left: 9px'  do %>
+<i class="fas fa-plus"></i>&nbsp
+Add a Prompt
+  <% end %>
+
+  <%= link_to Constants::PROMPT_INFORMATION_LINK, class: 'btn btn-tertiary', style: 'margin-left: 9px', target: '_blank' do %>
+<i class="fa fa-question-circle"></i>&nbsp
+More information
+  <% end %>
+</div>

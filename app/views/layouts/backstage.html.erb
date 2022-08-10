@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%= render 'shared/head' %>
+  </head>
+
+  <body>
+
+    <div class="rr-container">
+      <div class="rr-navbar">
+
+        <div class="rr-nav-brand">
+          <%= link_to dashboard_path do %>
+            <%= image_tag 'logo-small.png' %>
+          <% end %>
+        </div>
+
+        <div class="rr-nav-main">
+          <%= link_to "#{@current_project.title.truncate(28)}", dashboard_path, class: 'rr-nav-link pull-right switch-project' %>
+          <%= link_to 'Releases', project_releases_path(project_id: @current_project.id), class: "rr-nav-link #{current_page?(project_releases_path) ? 'active' : ''}" %>
+          <%= link_to 'Settings', edit_project_settings_path(project_id: @current_project.id), class: "rr-nav-link #{current_page?(edit_project_settings_path) ? 'active' : ''}"  %>
+          <%= link_to "Logout", user_sessions_path, class: 'rr-nav-link pull-right', method: :delete %>
+        </div>
+
+      </div>
+
+      <%= yield %>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,24 @@
+<%= render 'shared/dash_menu' %>
+<div id="modal-container"></div>
+
+<% content_for :title do %>
+  Projects
+<% end %>
+
+<div style="text-align: right">
+  <%= link_to 'Create Project', new_project_path, remote: true, class: 'btn btn-primary' %>
+</div>
+
+<table class="rr-table">
+  <thead>
+    <th>Name</th>
+    <th></th>
+    <th></th>
+  </thead>
+  <% @facade.projects.each do |project| %>
+    <tr>
+      <td><%= project.title.truncate(50) %></td>
+      <% unread = @facade.unread_counts[project.id] %>
+    </tr>
+  <% end %>
+</table>

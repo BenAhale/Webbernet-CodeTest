@@ -1,0 +1,22 @@
+<div class="digest">
+
+  <%= render 'no_results', payload: @facade.payload %>
+
+  <% @facade.payload.each do |day, releases| %>
+    <p class="release-category"><%= day %></p>
+
+    <% releases.each do |release| %>
+
+      <div class="release-block">
+        <div>
+
+          <span class="time" style="">
+            <%= Tznet::Format.run('digital_time_meridian', release.created_at.in_time_zone('Australia/Brisbane')) %>
+          </span>
+
+        </div>
+        <%= render 'title', release: release %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

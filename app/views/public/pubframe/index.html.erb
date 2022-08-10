@@ -1,0 +1,56 @@
+<%= content_for :container_class do %>
+  pubframe-body
+<% end %>
+
+<script>
+ function emitClose() {
+   window.parent.postMessage({ message: 'widget.close' }, '*')
+ }
+</script>
+
+<%= content_for :frame_bar do %>
+  <div class="brand-bar" style="background-color: <%= @theme_facade.background_color ? @theme_facade.background_color : "#f14b2b"; %>">
+    <div class="frame-title" style="display: flex; justify-content: space-between;">
+
+      <%= link_to public_releases_url(PassThroughParams.run({}, params)), style: 'color: white;', target: '_blank' do %>
+        <%= @facade.project.title %>
+      <% end %>
+
+      <%= link_to '#', onClick: 'emitClose()', style: 'color: white;' do %>
+        <i class="far fa-times-circle"></i>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+<div class="pubframe-digest">
+
+  <% @facade.payload.each do |day, releases| %>
+
+    <% releases.each do |release| %>
+
+      <% if @link_to_full_feed %>
+        <% link = public_releases_path(PassThroughParams.run({ anchor: "r#{release.id}"}, params)) %>
+      <% else %>
+        <% link = public_release_path(PassThroughParams.run({ public_id: release.public_key }, params))%>
+      <% end %>
+
+      <%= link_to link, id: "release-#{release.id}", target: '_blank' do %>
+        <div class="release-block">
+
+          <% if @facade.unread_releases&.include? release.id %>
+            <span class="new-icon" style="background-color: <%= @theme_facade.background_color ? @theme_facade.background_color : "#f14b2b"; %>" >New</span>
+          <% end %>
+
+          <span class="pframe-title" style="font-size: 13px;"><%= release.title.truncate(150) %></span>&nbsp
+
+          <div>
+            <span class="time" style="">
+              <%= day %> <%= Tznet::Format.run('digital_time_meridian', release.created_at.in_time_zone('Australia/Brisbane')) %>
+            </span>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  <% end %>
+</div>
